@@ -1,0 +1,54 @@
+doctype 5
+html
+	head
+		link(rel='stylesheet', href='/stylesheet/bootstrap-responsive.css')
+		link(rel='stylesheet', href='/stylesheet/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheet/style.css')
+		script(src='/javascript/jquery-1.8.2.min.js')
+		script(src='/javascript/jquery.autocomplete.min.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/javascript/login.js')
+		script(src='/javascript/main.js')
+		script(src='/javascript/bootstrap.js')
+	body
+		div(class='navbar navbar-static-top')
+			div(class='navbar-inner')
+				a(class='brand', href='/') GroupNote
+					
+				div(class='nav-float-right')
+					ul(class='nav')
+						li
+							a(href='') #{username}
+						li
+							a(href='/logout', id='logout') Log Out
+		div(class='container-fluid main')
+			div(class='row-fluid')
+		
+				div(class='subheader center')
+					h1 #{ uni } Courses
+					p(class='italic') Please select your course from the list below, or add it if it is not listed
+				
+				div(class='nav-list-cont')
+					div(class='outer-center')
+						div(class='inner-center')
+				
+							- if(crs)
+								ul(id='courselist', class='nav-lists')
+									- crs.forEach(function(item){
+										li
+											i(class="icon-book")
+											a(href='/course?name=' + item.course)= item.course 
+									- })
+							- else
+								p There are no courses yet
+					div(class='clear')
+				
+				legend
+				div(class='center')
+					form(id='addcrsform', class='navaddform', action='', method='POST')
+						label Add course
+						div(class='control-group', id='crs-control-group')
+							div(class='controls')
+								input(type='text', name='name', maxlength='30')
+								span(class='help-inline')
+							button(type='submit', class='btn btn-primary') Add

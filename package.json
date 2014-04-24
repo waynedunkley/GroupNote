@@ -1,0 +1,15 @@
+{
+  "name": "groupNote",
+  "description": "Online collaborative note-taking application",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.0.3",
+    "socket.io": "0.9.11",
+    "mongojs": "0.4.5",
+    "jade": "0.27.7",
+    "twitter-bootstrap": "2.1.1",
+    "bcrypt": "0.7.3",
+    "pdfcrowd": "1.1.0"
+  }
+}

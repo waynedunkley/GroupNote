@@ -1,0 +1,57 @@
+doctype 5
+html
+	head
+		link(rel='stylesheet', href='/stylesheet/style.css')
+		link(rel='stylesheet', href='/stylesheet/bootstrap-responsive.css')
+		link(rel='stylesheet', href='/stylesheet/bootstrap.css')
+		script(src='/javascript/jquery-1.8.2.min.js')
+		script(src='/javascript/jquery.autocomplete.min.js')
+		script(src='/javascript/jquery.autocomplete.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/javascript/login.js')
+		script(src='/javascript/main.js')
+		script(src='/javascript/bootstrap.js')
+		script(src='/javascript/documentviewer.js')
+	body(class='doc-viewer')
+		div(class='navbar navbar-static-top')
+			div(class='navbar-inner')
+				a(class='brand', href='/') GroupNote
+				ul(class='nav')
+					li(class='')
+						a(href='/course') Units
+					li(class='')
+						a(href='/documentviewer') Document Creator
+					
+				div(class='nav-float-right')
+					ul(class='nav')
+						li
+							a(href='') #{username}
+						li
+							a(href='/logout', id='logout') Log Out
+		div(class='container-fluid main')
+			div(class='row-fluid')
+				div(class='control-bar')
+					- if( back )
+						a(href='#{back}') << back
+					p font size:
+						span(id='increasefont')
+							i(class='icon-plus') 
+						span /
+						span(id='decreasefont')
+							i(class='icon-minus')
+						span / 
+						span(id='resetfont')
+							i(class='icon-refresh')
+					p(id='pdf-download') download
+					- if(!id)
+						form(id='queryform', action='', method='POST')
+							p search: 
+							input(type='text', name='query', maxlength='50')
+							select
+								- for(var key in units)
+									option #{units[key]}
+							span(class='help-inline')
+							button(type='submit', class='btn') search
+
+				
+				div(class='document-page', id='document-page')

@@ -1,0 +1,64 @@
+doctype 5
+html
+	head
+		link(rel='stylesheet', href='/stylesheet/bootstrap-responsive.css')
+		link(rel='stylesheet', href='/stylesheet/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheet/style.css')
+		script(src='/javascript/jquery-1.8.2.min.js')
+		script(src='/javascript/jquery.autocomplete.min.js')
+		script(src='/javascript/jquery.autocomplete.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/javascript/login.js')
+		script(src='/javascript/main.js')
+		script(src='/javascript/bootstrap.js')
+	body
+		div(class='navbar navbar-static-top')
+			div(class='navbar-inner')
+				a(class='brand', href='/') GroupNote
+				ul(class='nav')
+					li(class='active')
+						a(href='/course') Units
+					li(class='')
+						a(href='/documentviewer') Document Creator
+					
+				div(class='nav-float-right')
+					ul(class='nav')
+						li
+							a(href='') #{username}
+						li
+							a(href='/logout', id='logout') Log Out
+		div(class='container-fluid main')
+			div(class='row-fluid')
+			
+				div(class='subheader center')
+					h1 #{ course }
+				
+				
+				
+				div(class='nav-list-cont')
+					div(class='outer-center')
+						div(class='inner-center')
+				
+				
+							- if(units)
+								ul(id='unitslist', class='nav-lists')
+									- units.forEach(function(item){
+										li 
+											i(class="icon-book")
+											a(href='/unit?name=' + item)= item
+									- })
+							- else
+								p There are no units yet
+					div(class='clear')
+				
+				
+				
+				legend
+				div(class='center')
+					form(id='addunitform', class='navaddform', action='', method='POST')
+						label Add unit
+						div(class='control-group', id='crs-control-group')
+							div(class='controls')
+								input(type='text', name='name', class='autocomplete', maxlength='30')
+								span(class='help-inline')
+							button(type='submit', class='btn btn-primary') Add

@@ -1,0 +1,85 @@
+{
+	University: University of Portsmouth,
+	Course: [{
+		title: Web Technologies;
+		Units: [{
+			title: Web Research;
+			Class: [{
+				title: Week 1;
+				Comments: [{
+					author: "wayne",
+					time: 12.55,
+					comment: "blah blah blah";
+				},{
+					author: "jon",
+					time: 12.57,
+					comment: "blah blah blah";
+				},{
+					author: "toni",
+					time: 12.58,
+					comment: "blah blah blah";
+				}]
+			},{
+				title: Week 2;
+			},{
+				title: Week 3;
+			}]
+		},{}]
+	},{
+		title: Distributed Systems;
+	}]
+}
+
+
+
+
+
+
+USERS COLLECTION
+{
+	username: 'name',
+	email: 'example@uni.com',
+	university: 'University of Example',
+	password: 'encrypted',
+	_id: '...'
+}
+-----------------
+
+COURSE COLLECTION
+{
+	_id: '...',
+	course: 'Course Name',
+	units: ['unit 1', 'unit 2', 'units 3', '...'],
+	university: 'University of Example'
+}
+-----------------
+
+UNITS COLLECTION
+{
+	university: 'University of Example',
+	unit: 'unit 1',
+	_id: '...',
+	classes: [{
+			classname: 'class name',
+			lecturer: 'Mr Smith',
+			date: '01-01-2010',
+			time: '19:20',
+			duration: '1 hour',
+			unixdata: {
+				starttime: 00000000,
+				duration: 3600,
+				endtime: 00000000,
+				extended: 0
+			},
+			comments: [{
+				id: 1,
+				by: 'username'
+			}]
+		},
+		{
+		
+		},
+	]
+}
+
+

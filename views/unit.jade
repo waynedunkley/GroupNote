@@ -1,0 +1,297 @@
+doctype 5
+html
+	head
+		link(rel='stylesheet', href='/stylesheet/bootstrap-responsive.css')
+		link(rel='stylesheet', href='/stylesheet/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheet/timepicker.css')
+		link(rel='stylesheet', href='/stylesheet/datepicker.css')
+		link(rel='stylesheet', href='/stylesheet/style.css')
+		script(src='/javascript/jquery-1.8.2.min.js')
+		script(src='/javascript/jquery.autocomplete.min.js')
+		script(src='/javascript/jquery.autocomplete.js')
+		script(src='/javascript/login.js')
+		script(src='/javascript/main.js')
+		script(src='/javascript/bootstrap.js')
+		script(src='/javascript/bootstrap-timepicker.js')
+		script(src='/javascript/bootstrap-datepicker.js')
+		script(src='/javascript/class.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='/javascript/nicEdit-latest.js', type='text/javascript')
+		script(src='/javascript/mousetrap.min.js', type='text/javascript')
+	body
+		div(class='navbar navbar-static-top')
+			div(class='navbar-inner')
+				a(class='brand', href='/') GroupNote
+				ul(class='nav')
+					li(class='')
+						a(href='/course') Units
+					li(class='')
+						a(href='/documentviewer') Document Creator
+					
+				div(class='nav-float-right')
+					ul(class='nav')
+						li
+							a(href='') #{username}
+						li
+							a(href='/logout', id='logout') Log Out
+		div(class='container-fluid main')
+			div(class='row-fluid')
+				p(class='lead') #{uni} - #{unitname}
+			
+		div(class='flush')
+			legend
+		div(class='row-fluid bgColor')
+			div(class='bgColorRight')
+			div(class='container-fluid')
+				div(class='row-fluid')
+					div(class='nav-tabs-bg')
+					
+					div(class='tabbable tabs-left')
+						ul(class='nav nav-tabs', id='class-menu')
+							- var count = 1;
+							- for (var key in classes)
+								//- list item also includes classname as ID
+								li(id='menuitem' + count + ' CID#{classes[key].classname}')
+									a(href='#tab'+ count +'', data-toggle='tab')= classes[key].classname
+								- var count = count +1;
+							li
+								a(href='#addNewClass', data-toggle='tab', id='addNewClassButton') Add New
+						
+						
+						
+						
+						
+						div(class='tab-content class-page', id='content-window')
+							- var count = 1;
+							- for (var key in classes)
+								div(class='tab-pane', id='tab' + count + '')				
+									- if( classes[key].status == "starting soon" )
+										
+										//========= CLASS STARTING WITHIN THE HOUR ================
+										
+										div(class='left-side span5', id='class#{key}')
+											h1 #{classes[key].classname}
+		
+											div(class='details-box')
+	
+												
+												div(class='col col1')
+													div(class='details-title')
+														p Date: 
+														p Time: 
+														p Duration: 
+													div(class='details-info')
+														p #{ classes[key].date }
+														p #{ classes[key].time }
+														input(class='hidden', id='starttime#{key}', value='#{ classes[key].unixdata.starttime }', disabled)
+														p #{ classes[key].duration }
+														input(class='hidden', id='duration#{key}', value='#{ classes[key].unixdata.duration }', disabled)
+												
+												div(class='col col2')
+													div(class='details-title')
+														p Lecturer: 
+														p Status: 
+														p(id='startsin#{key}') Starts in: 
+													div(class='details-info')
+														p #{ classes[key].lecturer }
+														p(id='status#{key}') #{ classes[key].status }
+														span(class='timer', id='timer#{key}')
+															input(class="timeholders", type="text", name="starttime", value="#{ classes[key].unixdata.starttime }")
+															input(class="timeholders", type="text", name="currenttime", value="#{ date }")
+												div(class='clear')
+												
+											div(class="row-fluid")
+												div(id="CIDform#{key}")
+											
+										div(class='right-side span7')
+											div(id='commentcont#{key}', class="commentcont")
+											
+										//=======================================================
+	
+									- else if( classes[key].status == "live" )
+										
+										//========= CLASS IN LIVE SESSION =======================
+										
+										div(class='left-side span5', id='class#{key}')
+	
+											h1 #{classes[key].classname}
+											div(class='details-box')
+												div(class='col col1')
+													div(class='details-title')
+														p Date: 
+														p Time: 
+														p Duration: 
+													div(class='details-info')
+														p #{ classes[key].date }
+														p #{ classes[key].time }
+														input(class='hidden', id='starttime#{key}', value='#{ classes[key].unixdata.starttime }', disabled)
+														p #{ classes[key].duration }
+														input(class='hidden', id='duration#{key}', value='#{ classes[key].unixdata.duration }', disabled)
+												div(class='col col2')
+													div(class='details-title')
+														p Lecturer: 
+														p Status: 
+														p(id='remaining#{key}') Remaining: 
+													div(class='details-info')
+														p #{ classes[key].lecturer }
+														p(id='status#{key}') #{ classes[key].status }
+														p(id='remainingtimer#{key}')
+															span(class='numbers', id='numbers#{key}') timer
+												div(class='clear')
+											
+											div(class="row-fluid")
+												div(id="CIDform#{key}", class="editor")
+											
+										div(class='right-side span7')
+											div(id='commentcont#{key}', class="commentcont livecomments")
+												
+												
+									
+										//=======================================================
+									
+									
+									- else if( classes[key].status == "complete" )
+									
+										//========= CLASS HAS FINISHED ==========================
+									
+										div(class='left-side span5', id='class#{key}')
+											h1 #{classes[key].classname}
+	
+											div(class='details-box')
+												div(class='col col1')
+													div(class='details-title')
+														p Date: 
+														p Time: 
+														p Duration: 
+													div(class='details-info')
+														p #{ classes[key].date }
+														p #{ classes[key].time }
+														p #{ classes[key].duration }
+												div(class='col col2')
+													div(class='details-title')
+														p Lecturer: 
+														p Status: 
+													div(class='details-info')
+														- if( classes[key].lecturer == '')
+															p unknown
+														- else
+															p #{ classes[key].lecturer }
+														p(id='status#{key}') #{ classes[key].status }
+												div(class='clear')
+											
+											div(class="row-fluid")
+												div(id="CIDform#{key}")
+											
+										div(class='right-side span7 finished')
+											div(class="doccontainer")
+												div(class='doc-control-bar center')
+													a(href='/documentviewer?doc_id=#{key}')
+														i(class='icon-resize-full') 
+														span fullscreen
+														
+												div(id='finisheddoc#{key}', class="finisheddoc")
+											
+										//=======================================================
+										
+									- else if( classes[key].status == "pending" )
+										
+										// ===== CLASS START TIME IS MORE THAN AN HOUR AWAY =====
+										
+										div(class='left-side span5', id='class#{key}')
+											h1 #{classes[key].classname}
+											div(class='details-box')
+												div(class='col col1')
+													div(class='details-title')
+														p Date: 
+														p Time: 
+														p Duration: 
+													div(class='details-info')
+														p #{ classes[key].date }
+														p #{ classes[key].time }
+														input(class='hidden', id='starttime#{key}', value='#{ classes[key].unixdata.starttime }', disabled)
+														p #{ classes[key].duration }
+														input(class='hidden', id='duration#{key}', value='#{ classes[key].unixdata.duration }', disabled)
+												div(class='col col2')
+													div(class='details-title')
+														p Lecturer: 
+														p Status: 
+													div(class='details-info')
+														- if( classes[key].lecturer == '')
+															p unknown
+														- else
+															p #{ classes[key].lecturer }
+														p(id='status#{key}') #{ classes[key].status }
+												div(class='clear')
+											
+											div(class="row-fluid")
+												div(id="CIDform#{key}")
+											
+										div(class='right-side span7')
+											div(id='commentcont#{key}', class="commentcont")
+											
+										//=======================================================
+										//================ END OF CLASS OPTIONS  ================	
+										
+										
+									- var count = count +1;
+							
+							
+							
+							
+							
+							
+							div(class='tab-pane', id='addNewClass')
+								form(id='addclassform', action='', method='POST')
+									fieldset
+										label Add New Class
+										div(class='control-group', id='classname-control-group')									
+											label Class Name
+											div(class='controls')
+												input(type='text', name='className', maxlength='16')
+												span(class='help-inline')
+										label Lecturer
+										input(type='text', name='lecturer', id='lecturer', maxlength='20')
+										span(class='help-inline')
+										label Date
+										div(class='input-append date', id='dp1', data-date='', data-date-format='dd-mm-yyyy')
+											input(class='span2', id='date', name='date', size='16', type='text', value='', data-date-format='dd-mm-yyyy')
+											span(class='add-on')
+												i(class='icon-calendar')
+										label Time
+										div(class='input-append bootstrap-timepicker-component')
+											input(type='text', class='timepicker-default input-small', id='tp1', name='time', value='0')
+											span(class='add-on')
+												i(class='icon-time')
+												span(class='help-inline')
+												
+										label Duration
+										select(name='duration')
+											//option 15 mins
+											option 30 mins
+											//option 45 mins
+											option(selected="selected") 1 hour
+											//option 1 hour 15 mins
+											option 1 hour 30 mins
+											//option 1 hour 45 mins
+											option 2 hours
+										span(class='help-inline')
+										input(name='unit', value='#{unitname}', style='visibility:hidden')
+									button(id='addClass', type='button', class='btn') Add
+									
+									div(id='formnotifier', class='alert alert-success infobox')
+										button(type='button', class='close', data-dismiss='alert') &times;
+										strong Class added!
+										
+									div(id='forminfo', class='alert alert-error infobox')
+										button(type='button', class='close', data-dismiss='alert') &times;
+										strong	
+									
+		div(class='clear')			
+
+		legend
+				
+
+			
+
+		
+		

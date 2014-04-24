@@ -1,0 +1,55 @@
+doctype 5
+html
+	head
+		link(rel='stylesheet', href='/stylesheet/bootstrap-responsive.css')
+		link(rel='stylesheet', href='/stylesheet/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheet/style.css')
+		script(src='/javascript/jquery-1.8.2.min.js')
+		script(src='/javascript/registration.js')
+		script(src='/javascript/bootstrap.js')
+	body
+		div(class='navbar navbar-static-top')
+			div(class='navbar-inner')
+				a(class='brand', href='/') GroupNote
+		
+		div(class='container-fluid main')		
+			div(class='regform')
+				form(id='registerform', action='', method='POST', class='form-horizontal well')
+					p(class='lead center') Registration
+					legend
+					div(class='control-group', id='username-control-group')
+						label(for='username', class='control-label') Username
+						div(class='controls')
+							input(type='text', name='username', id='username', maxlength='20')
+							span(class='help-inline')
+					div(class='control-group', id='email-control-group')
+						label(for='email', class='control-label') Email
+						div(class='controls')
+							input(type='text', name='email', maxlength='50')
+							span(class='help-inline')
+					div(class='control-group', id='uni-control-group')
+						label(for='uni', class='control-label') University
+						div(class='controls')
+							select(name='uni', id='unilist')
+								option(disabled='disabled', selected) Please select
+								option University of Portsmouth
+								option Southampton University
+								option Not listed
+							span(class='help-inline')	
+					div(class='control-group', id='unisuggest-control-group')
+						label(for='unisuggest', class='control-label') Please specify
+						div(class='controls')
+							input(type='text', name='unisuggest', id='unisuggest', maxlength='50')
+							span(class='help-inline')
+					div(class='control-group', id='password1-control-group')
+						label(for='password1', class='control-label') Password
+						div(class='controls')
+							input(type='password', name='password', maxlength='50')
+					div(class='control-group', id='password2-control-group')
+						label(for='password2', class='control-label') Repeat Password
+						div(class='controls')
+							input(type='password', name='password2', maxlength='50')
+							span(class='help-inline')
+					div(class='control-group')
+						div(class='controls')
+							input(type='submit', value='Register', class='btn btn-primary')
